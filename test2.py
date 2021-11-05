@@ -7,6 +7,7 @@ PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
 
 url = "https://api.paystack.co/charge"
 
+
 def charge_by_card():
 
     payload = json.dumps({
@@ -49,16 +50,16 @@ def initialize_transaction():
     payload = json.dumps({
         "email": "linux@email.com",
         "amount": "500000",
-    # "reference": "XXXREF",
-    # "metadata": {
-    #     "custom_fields": [
-    #     {
-    #         "display_name": "Mobile Number",
-    #         "variable_name": "mobile_number",
-    #         "value": "+233540303211"
-    #     }
-    #     ]
-    # }
+        # "reference": "XXXREF",
+        # "metadata": {
+        #     "custom_fields": [
+        #     {
+        #         "display_name": "Mobile Number",
+        #         "variable_name": "mobile_number",
+        #         "value": "+233540303211"
+        #     }
+        #     ]
+        # }
     })
     headers = {
         'Authorization': f'Bearer {PAYSTACK_SECRET_KEY}',
@@ -82,9 +83,9 @@ def mobile_money_transaction():
         "email": "dominic@gmail.com",
         "currency": "GHS",
         "mobile_money": {
-            "phone" : "+233540303211",
-            "provider" : "MTN"
-    }
+            "phone": "+233540303211",
+            "provider": "MTN"
+        }
     })
     headers = {
         'Authorization': f'Bearer {PAYSTACK_SECRET_KEY}',
@@ -97,12 +98,11 @@ def mobile_money_transaction():
 # mobile_money_transaction()
 
 
-
 def send_otp():
 
     url = "https://api.paystack.co/charge/submit_otp"
 
-    payload='otp=123456&reference=5bwib5v6anhe9xa'
+    payload = 'otp=123456&reference=5bwib5v6anhe9xa'
     headers = {
         'Authorization': f'Bearer {PAYSTACK_SECRET_KEY}',
         'Content-Type': 'application/json'
@@ -112,4 +112,5 @@ def send_otp():
 
     print(response.text)
 
-# send_otp()
+
+send_otp()
