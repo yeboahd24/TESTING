@@ -67,7 +67,7 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
 pay = flutterwave_card_payment(
     amount=100, card_number='5531886652142950', expiry_month='03',
     expiry_year='24', cvv='564', pin='3310')
-print(pay)
+# print(pay)
 
 
 
@@ -79,7 +79,7 @@ def flutterwave_mobile_money_payment(amount, phone_number, pin):
     """
 
     # import the necessary variables
-    url = os.environ.get('FLUTTERWAVE_URL')
+    url = os.environ.get('FLUTTERWAVE_MOBILE_URL')
     secret_key = os.environ.get('FLUTTERWAVE_SECRET_KEY')
     public_key = os.environ.get('FLUTTERWAVE_PUBLIC_KEY')
     # create the headers
@@ -93,7 +93,15 @@ def flutterwave_mobile_money_payment(amount, phone_number, pin):
         'amount': amount,
         'currency': 'GHS',
         'country': 'GH',
-        'email': ''
+        'tx_ref': 'hooli-tx-1920bbtytty',
+        'email': 'dominic@gmail.com',
+        'phone_number': phone_number,
+        'tx_ref': 'hooli-tx-1920bbtytty',
+        "network":"MTN",
+        "authorization": {
+            "mode": "pin",
+            "pin": pin,
+        }
     }
     data = PythonObjectEncoder().encode(data)
     hashed_sec_key = encryption.PayTest.getKey(secret_key)
@@ -111,6 +119,44 @@ def flutterwave_mobile_money_payment(amount, phone_number, pin):
     return response.json()
 
 
-mobile = flutterwave_mobile_money_payment(
-    amount=100, phone_number='0540303211', pin='3310')
-print(mobile)
+mobile = flutterwave_mobile_money_payment(amount='100', phone_number='0540303211', pin='3310')
+# print(mobile)
+
+
+def transaction_verification(tx_ref):
+    """
+    This function will verify a transaction
+    """
+
+    # import the necessary variables
+    url = os.environ.get('FLUTTERWAVE_VERIFICATION_URL')
+    secret_key = os.environ.get('FLUTTERWAVE_SECRET_KEY')
+    public_key = os.environ.get('FLUTTERWAVE_PUBLIC_KEY')
+    # create the headers
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + secret_key
+    }
+    # create the data
+    data = {
+        'tx_ref': tx_ref
+    }
+    data = PythonObjectEncoder().encode(data)
+    # hashed_sec_key = encryption.PayTest.getKey(secret_key)
+    # encrypt_3DES_key = encryption.PayTest.encryptData(hashed_sec_key, data)
+
+    # # payment payload
+    # payload = {
+    #     "PBFPubKey": public_key,
+    #     "client": encrypt_3DES_key,
+    #     "alg": "3DES-24"
+    # }
+    # payload = PythonObjectEncoder().encode(payload)
+    # make the request
+    response = requests.get(url, headers=headers, data=data)
+    return response.json()
+
+
+verify = transaction_verification(tx_ref='hooli-tx-1920bbtytty')
+print(verify)
