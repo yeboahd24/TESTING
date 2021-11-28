@@ -38,13 +38,16 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
         'expiry_year': expiry_year,
         'currency': 'GHS',
         'country': 'GH',
-        'email': 'dominic@gmail.com',
+        'redirect_url': 'https://webhook.site/c1ff1154-8535-4d1a-99a6-5b32cc5c366d',
+        'email': 'yeboahd24@gmail.com',
         'phone_number': '0540303211',
-        'tx_ref': 'hooli-tx-1920bbtytty',
+        "preauthorize": True,
+        'tx_ref': "MC-3243e",
         "authorization": {
             "mode": "pin",
             "pin": pin,
-        }
+            
+        },
     }
 
     data = PythonObjectEncoder().encode(data)
@@ -55,19 +58,22 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
     payload = {
         "PBFPubKey": public_key,
         "client": encrypt_3DES_key,
-        "alg": "3DES-24"
+        "alg": "3DES-24",
     }
     payload = PythonObjectEncoder().encode(payload)
+    
     # make the request
+    vgs = "https://echo.apps.verygood.systems/post"
     response = requests.post(url, headers=headers, data=payload)
     return response.json()
     # return PythonObjectEncoder(response) if response.status_code == 200 else response.json()
 
 
-pay = flutterwave_card_payment(
-    amount=100, card_number='5531886652142950', expiry_month='03',
-    expiry_year='24', cvv='564', pin='3310')
-# print(pay)
+if __name__ == '__main__':
+    pay = flutterwave_card_payment(
+        amount=100, card_number='5531886652142950', expiry_month='09',
+        expiry_year='34', cvv='564', pin='3310')
+    print(pay)
 
 
 
@@ -123,40 +129,40 @@ mobile = flutterwave_mobile_money_payment(amount='100', phone_number='0540303211
 # print(mobile)
 
 
-def transaction_verification(tx_ref):
-    """
-    This function will verify a transaction
-    """
+# def transaction_verification(tx_ref):
+#     """
+#     This function will verify a transaction
+#     """
 
-    # import the necessary variables
-    url = os.environ.get('FLUTTERWAVE_VERIFICATION_URL')
-    secret_key = os.environ.get('FLUTTERWAVE_SECRET_KEY')
-    public_key = os.environ.get('FLUTTERWAVE_PUBLIC_KEY')
-    # create the headers
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + secret_key
-    }
-    # create the data
-    data = {
-        'tx_ref': tx_ref
-    }
-    data = PythonObjectEncoder().encode(data)
-    # hashed_sec_key = encryption.PayTest.getKey(secret_key)
-    # encrypt_3DES_key = encryption.PayTest.encryptData(hashed_sec_key, data)
+#     # import the necessary variables
+#     url = os.environ.get('FLUTTERWAVE_VERIFICATION_URL')
+#     secret_key = os.environ.get('FLUTTERWAVE_SECRET_KEY')
+#     public_key = os.environ.get('FLUTTERWAVE_PUBLIC_KEY')
+#     # create the headers
+#     headers = {
+#         'Content-Type': 'application/json',
+#         'Accept': 'application/json',
+#         'Authorization': 'Bearer ' + secret_key
+#     }
+#     # create the data
+#     data = {
+#         'tx_ref': tx_ref
+#     }
+#     data = PythonObjectEncoder().encode(data)
+#     # hashed_sec_key = encryption.PayTest.getKey(secret_key)
+#     # encrypt_3DES_key = encryption.PayTest.encryptData(hashed_sec_key, data)
 
-    # # payment payload
-    # payload = {
-    #     "PBFPubKey": public_key,
-    #     "client": encrypt_3DES_key,
-    #     "alg": "3DES-24"
-    # }
-    # payload = PythonObjectEncoder().encode(payload)
-    # make the request
-    response = requests.get(url, headers=headers, data=data)
-    return response.json()
+#     # # payment payload
+#     # payload = {
+#     #     "PBFPubKey": public_key,
+#     #     "client": encrypt_3DES_key,
+#     #     "alg": "3DES-24"
+#     # }
+#     # payload = PythonObjectEncoder().encode(payload)
+#     # make the request
+#     response = requests.get(url, headers=headers, data=data)
+#     return response.json()
 
 
-verify = transaction_verification(tx_ref='hooli-tx-1920bbtytty')
-print(verify)
+# verify = transaction_verification(tx_ref='hooli-tx-1920bbtytty')
+# # print(verify)

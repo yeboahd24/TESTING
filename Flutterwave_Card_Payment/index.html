@@ -1,0 +1,26 @@
+<form method="POST" action="https://checkout.flutterwave.com/v3/hosted/pay">
+  <input
+    type="hidden"
+    name="public_key"
+    value="FLWPUBK_TEST-2b7e49c0934300756e2fdb4ecb55f718-X"
+  />
+  <input
+    type="hidden"
+    name="customer[email]"
+    value="jessepinkman@walterwhite.org"
+  />
+  <input type="hidden" name="customer[phone_number]" value="0900192039940" />
+  <input type="hidden" name="customer[name]" value="Jesse Pinkman" />
+  <input type="hidden" name="tx_ref" value="bitethtx-019203" />
+  <input type="hidden" name="amount" value="3400" />
+  <input type="hidden" name="currency" value="NGN" />
+  <input type="hidden" name="meta[token]" value="54" />
+  <input
+    type="hidden"
+    name="redirect_url"
+    value="https://webhook.site/c1ff1154-8535-4d1a-99a6-5b32cc5c366d
+"
+  />
+
+  <button type="submit">CHECKOUT</button>
+</form>
