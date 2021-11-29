@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 from .forms import PaymentForm
 from django.http import HttpResponse
 import requests
 from .models import Payment
 from django.core.mail import send_mail
+import random
 
 headers = {
     'Authorization': 'Bearer ' + settings.FLUTTERWAVE_SECRET_KEY,
@@ -22,11 +23,11 @@ def flutterwave_initiate_payment(request):
     if request.method == 'POST':
 
         data = {
-            "tx_ref": "hooli-tx-1999bbtytty",
+            "tx_ref": f"hooli-tx-{random.randrange(1, 10000)}bbtytty",
             "currency": "GHS",
             "amount": request.POST.get('amount'),
 
-            "redirect_url": "https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",
+            "redirect_url": "http://127.0.0.1:8000",
             "payment_options": "card",
 
             "customer": {
@@ -47,3 +48,5 @@ def flutterwave_initiate_payment(request):
         return HttpResponse('Payment has been initiated, Please check your email for further process')
             
     return render(request, 'payment.html')
+
+
