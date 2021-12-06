@@ -27,7 +27,7 @@ def flutterwave_initiate_payment(request):
             "currency": "GHS",
             "amount": request.POST.get('amount'),
 
-            "redirect_url": "http://127.0.0.1:8000",
+            "redirect_url": request.build_absolute_uri('/payment/success/'),
             "payment_options": "card",
 
             "customer": {
@@ -50,3 +50,7 @@ def flutterwave_initiate_payment(request):
     return render(request, 'payment.html')
 
 
+def vgs_view(request):
+    if request.method == 'POST':
+        return render(request, 'vgs.html')
+    return render(request, 'vgs.html')

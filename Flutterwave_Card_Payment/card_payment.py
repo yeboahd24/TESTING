@@ -4,7 +4,10 @@ import requests
 import os
 import pin
 import encryption
-import json
+from verification import verify_payment
+
+with open('Flutterwave_Card_Payment/sandbox.pem', 'r') as f:
+    pem_data = f.read()
 
 
 class PythonObjectEncoder(JSONEncoder):
@@ -23,11 +26,13 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
     url = os.environ.get('FLUTTERWAVE_URL')
     secret_key = os.environ.get('FLUTTERWAVE_SECRET_KEY')
     public_key = os.environ.get('FLUTTERWAVE_PUBLIC_KEY')
+    # https_proxy = os.environ.get('HTTPS_PROXY')
     # create the headers
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer ' + secret_key
+        'Authorization': 'Bearer ' + secret_key,
+        'Cache-Control': 'no-cache',
     }
     # create the data
     data = {
@@ -46,7 +51,7 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
         "authorization": {
             "mode": "pin",
             "pin": pin,
-            
+
         },
     }
 
@@ -61,10 +66,11 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
         "alg": "3DES-24",
     }
     payload = PythonObjectEncoder().encode(payload)
-    
+
     # make the request
-    vgs = "https://echo.apps.verygood.systems/post"
+    # vgs = 'https://tnttukbbvmi.sandbox.verygoodproxy.com'
     response = requests.post(url, headers=headers, data=payload)
+    verify_payment(reference=response.json()['data']['tx_ref'])
     return response.json()
     # return PythonObjectEncoder(response) if response.status_code == 200 else response.json()
 
@@ -74,9 +80,6 @@ if __name__ == '__main__':
         amount=100, card_number='5531886652142950', expiry_month='09',
         expiry_year='34', cvv='564', pin='3310')
     print(pay)
-
-
-
 
 
 def flutterwave_mobile_money_payment(amount, phone_number, pin):
@@ -103,7 +106,7 @@ def flutterwave_mobile_money_payment(amount, phone_number, pin):
         'email': 'dominic@gmail.com',
         'phone_number': phone_number,
         'tx_ref': 'hooli-tx-1920bbtytty',
-        "network":"MTN",
+        "network": "MTN",
         "authorization": {
             "mode": "pin",
             "pin": pin,
@@ -112,7 +115,7 @@ def flutterwave_mobile_money_payment(amount, phone_number, pin):
     data = PythonObjectEncoder().encode(data)
     hashed_sec_key = encryption.PayTest.getKey(secret_key)
     encrypt_3DES_key = encryption.PayTest.encryptData(hashed_sec_key, data)
-    
+
     # payment payload
     payload = {
         "PBFPubKey": public_key,
@@ -121,11 +124,13 @@ def flutterwave_mobile_money_payment(amount, phone_number, pin):
     }
     payload = PythonObjectEncoder().encode(payload)
     # make the request
+
     response = requests.post(url, headers=headers, data=payload)
-    return response.json()
+    return response
 
 
-mobile = flutterwave_mobile_money_payment(amount='100', phone_number='0540303211', pin='3310')
+mobile = flutterwave_mobile_money_payment(
+    amount='100', phone_number='0540303211', pin='3310')
 # print(mobile)
 
 
