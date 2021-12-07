@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
-from .forms import PaymentForm
 from django.http import HttpResponse
 import requests
-from .models import Payment
 from django.core.mail import send_mail
 import random
+import asyncio
+import httpx
+
 
 headers = {
     'Authorization': 'Bearer ' + settings.FLUTTERWAVE_SECRET_KEY,
@@ -18,7 +19,7 @@ def form(request):
     return render(request, 'forms.html')
 
 
-def flutterwave_initiate_payment(request):
+async def flutterwave_initiate_payment(request):
 
     if request.method == 'POST':
 
@@ -36,17 +37,22 @@ def flutterwave_initiate_payment(request):
                 "name": request.POST.get('name'),
             },
         }
-        response = requests.post(url, json=data, headers=headers)
-        print(response.json())
-        send_mail(
-            'Payment Link',
-            'Your payment has been initiated. Please open this link to make your payment ' + response.json()['data']['link'],
-            
-            request.POST.get('email'),['yeboahd24@gmail.com'],
-            fail_silently=False,
-        )
-        return HttpResponse('Payment has been initiated, Please check your email for further process')
-            
+        # response = httpx.post(url, json=data, headers=headers)
+        # print(response.json())
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=data, headers=headers)
+            print(response.json())
+        # return redirect(response.json()['data']['authorization_url'])
+            send_mail(
+                'Payment Link',
+                'Your payment has been initiated. Please open this link to make your payment ' +
+                response.json()['data']['link'],
+
+                request.POST.get('email'), ['yeboahd24@gmail.com'],
+                fail_silently=False,
+            )
+            return HttpResponse('Payment has been initiated, Please check your email for further process')
+
     return render(request, 'payment.html')
 
 
@@ -54,3 +60,5 @@ def vgs_view(request):
     if request.method == 'POST':
         return render(request, 'vgs.html')
     return render(request, 'vgs.html')
+
+

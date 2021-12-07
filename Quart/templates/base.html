@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{ url_for('static', filename='blog.css') }}"
+  />
+  <title>Blog</title>
+</head>
+
+<h1><a href="{{ url_for('posts') }}">Blog</a></h1>
+{% for message in get_flashed_messages() %}
+<div class="flash">{{ message }}</div>
+{% endfor %}
+<div class="content">{% block content %} {% endblock %}</div>
