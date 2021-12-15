@@ -16,7 +16,7 @@ def display_words_ended_with_ed(text):
     for word in text.split():
         if word.endswith('ed'):
             print(word)
-            
+
 print(display_words_ended_with_ed(text))
 
 
@@ -30,3 +30,5 @@ print(count_words_with_four_letters(text))
 
 
 arrays = [1,2,3,4,5,6,7,8,9,10]
+
+

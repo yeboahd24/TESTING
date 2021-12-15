@@ -32,6 +32,7 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + secret_key,
+        'X-Private-Key': secret_key,
         'Cache-Control': 'no-cache',
     }
     # create the data
@@ -70,7 +71,7 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
     # make the request
     # vgs = 'https://tnttukbbvmi.sandbox.verygoodproxy.com'
     response = requests.post(url, headers=headers, data=payload)
-    verify_payment(reference=response.json()['data']['tx_ref'])
+    # verify_payment(reference=response.json()['data']['tx_ref'])
     return response.json()
     # return PythonObjectEncoder(response) if response.status_code == 200 else response.json()
 
