@@ -1,0 +1,119 @@
+data:
+  - attributes:
+      created_at: "2021-11-24T12:46:16"
+      destination_override_endpoint: "*"
+      entries:
+        - classifiers: {}
+          config:
+            condition: AND
+            rules:
+              - expression:
+                  field: PathInfo
+                  operator: begins_with
+                  type: string
+                  values:
+                    - /v3/charges
+              - expression:
+                  field: ContentType
+                  operator: equals
+                  type: string
+                  values:
+                    - application/json
+          id: 172aeb46-54ed-4ad3-a1d8-37fb91f64cca
+          id_selector: null
+          operation: ENRICH
+          operations:
+            - - name: github.com/verygoodsecurity/common/http/header/Get
+                parameters:
+                  header: X-Private-Key
+                  var: ctx.privateKey
+            - - name: github.com/verygoodsecurity/common/vars/Reveal
+                parameters:
+                  var: ctx.privateKey
+            - - name: github.com/verygoodsecurity/common/content-type/json/Get
+                parameters:
+                  path: PBFPubKey
+                  var: ctx.pubKey
+            - - name: github.com/verygoodsecurity/common/http/body/Get
+                parameters:
+                  var: ctx.payload
+            - - name: >-
+                  github.com/verygoodsecurity/common/utils/crypto/tripleDes/Encrypt
+                parameters:
+                  hashedKey: true
+                  input: ctx.payload
+                  key: ctx.privateKey
+                  var: ctx.client
+            - - name: github.com/verygoodsecurity/common/content-type/json/Set
+                parameters:
+                  input: {}
+                  path: client
+                  value: ctx.client
+                  var: ctx.payload
+            - - name: github.com/verygoodsecurity/common/http/body/Set
+                parameters:
+                  value: ctx.payload
+            - - name: github.com/verygoodsecurity/common/content-type/json/Set
+                parameters:
+                  path: PBFPubKey
+                  value: ctx.pubKey
+            - - name: github.com/verygoodsecurity/common/content-type/json/Set
+                parameters:
+                  path: alg
+                  value: 3DES-24
+            - - name: github.com/verygoodsecurity/common/content-type/json/Set
+                parameters:
+                  path: privateKey
+                  value: ctx.privateKey
+          phase: REQUEST
+          public_token_generator: UUID
+          targets:
+            - body
+          token_manager: PERSISTENT
+          transformer: JSON_PATH
+          transformer_config:
+            - $.cvv
+          transformer_config_map: null
+        - classifiers: {}
+          config:
+            condition: AND
+            rules:
+              - expression:
+                  field: PathInfo
+                  operator: begins_with
+                  type: string
+                  values:
+                    - /v3/charges
+              - expression:
+                  field: ContentType
+                  operator: equals
+                  type: string
+                  values:
+                    - application/json
+          id: ea1b67d3-c847-4e9f-938e-28c1387067b0
+          id_selector: null
+          operation: ENRICH
+          operations: null
+          phase: REQUEST
+          public_token_generator: UUID
+          targets:
+            - body
+          token_manager: PERSISTENT
+          transformer: JSON_PATH
+          transformer_config:
+            - $.account_number
+          transformer_config_map: null
+          type: null
+      host_endpoint: api.flutterwave.com
+      id: 1d5666d4-01d3-42f8-815d-79f7962b4629
+      ordinal: null
+      port: 80
+      protocol: http
+      source_endpoint: "*"
+      tags:
+        name: medium-slate-blue-crescent
+        source: RouteContainer
+      updated_at: "2022-01-06T00:14:50"
+    id: 1d5666d4-01d3-42f8-815d-79f7962b4629
+    type: rule_chain
+version: 1

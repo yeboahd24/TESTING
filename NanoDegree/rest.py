@@ -24,4 +24,4 @@ if __name__ == "__main__":
     driver.get("https://www.linkedin.com/")
     scrap_all_my_linkind_connectios_name_and_job_position(driver)
     time.sleep(2)
-       
+

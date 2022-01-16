@@ -6,8 +6,10 @@ import pin
 import encryption
 from verification import verify_payment
 
-with open('Flutterwave_Card_Payment/sandbox.pem', 'r') as f:
-    pem_data = f.read()
+
+username = 'USaPcchFXC7zmjXBa7KvJMVR'
+passwd = 'yeboahD24@gmail'
+vault = 'tnttukbbvmi'
 
 
 class PythonObjectEncoder(JSONEncoder):
@@ -32,7 +34,6 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + secret_key,
-        'X-Private-Key': secret_key,
         'Cache-Control': 'no-cache',
     }
     # create the data
@@ -59,6 +60,7 @@ def flutterwave_card_payment(amount, card_number, expiry_year, expiry_month, cvv
     data = PythonObjectEncoder().encode(data)
     hashed_sec_key = encryption.PayTest.getKey(secret_key)
     encrypt_3DES_key = encryption.PayTest.encryptData(hashed_sec_key, data)
+    # print(encrypt_3DES_key)
 
     # payment payload
     payload = {
@@ -172,3 +174,7 @@ mobile = flutterwave_mobile_money_payment(
 
 # verify = transaction_verification(tx_ref='hooli-tx-1920bbtytty')
 # # print(verify)
+
+
+
+

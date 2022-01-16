@@ -8,7 +8,7 @@ class PayTest(object):
 
     def __init__(self):
         pass
-    
+
     @staticmethod
     def getKey(secret_key):
         hashedseckey = hashlib.md5(secret_key.encode("utf-8")).hexdigest()
@@ -33,3 +33,8 @@ class PayTest(object):
 
 if __name__ == '__main__':
     PayTest()
+    # secret_key='FLWSECK_TEST-88ebd2a6edb534bbc663d33efcd1211a-X'
+
+    # test = PayTest().getKey(secret_key)
+    # test2 = PayTest().encryptData(test, "encrypted")
+    # print(test2)

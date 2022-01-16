@@ -1,0 +1,26 @@
+Matter is anything that have mass and can occupy space.
+Python
+
+Python
+
+data = {
+    "name": "",
+    "mass": 0,
+    "position": [0, 0, 0],
+    "velocity": [0, 0, 0],
+    "acceleration": [0, 0, 0],
+    "force": [0, 0, 0],
+    "color": [0, 0, 0],
+    "radius": 0,
+    "type": "",
+    "is_static": False,
+    "is_visible": True,
+}
+
+data.update({"name": "Sun"})
+
+print(data)
+
+
+
+

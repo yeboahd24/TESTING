@@ -1,13 +1,13 @@
 import socketserver
 
-# Server one 
+# Server one
 class SocketServer(socketserver.BaseRequestHandler):
     def handle(self):
         self.data = self.request.recv(1024).strip()
         print("{} wrote:".format(self.client_address[0]))
         print(self.data)
         self.request.sendall(self.data.upper())
-        
+
 if __name__ == "__main__":
     HOST, PORT = "localhost", 8000
     server = socketserver.TCPServer((HOST, PORT), SocketServer)
@@ -37,7 +37,7 @@ class Server:
 
     def close(self):
         self.connection.close()
-        
+
 if __name__ == "__main__":
     server = Server('localhost', 8000)
     server.send('Hello World!')

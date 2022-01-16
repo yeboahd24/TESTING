@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse
 import requests
 from django.core.mail import send_mail
 import random
-import asyncio
 import httpx
+from .models import Music
 
 
 headers = {
@@ -62,3 +62,49 @@ def vgs_view(request):
     return render(request, 'vgs.html')
 
 
+def music_results(request):
+
+    musics = get_object_or_404(Music)
+
+    url = "https://shazam.p.rapidapi.com/songs/list-artist-top-tracks"
+
+    querystring = {"id":"40008598","locale":"en-US"}
+
+    headers = {
+        'x-rapidapi-host': "shazam.p.rapidapi.com",
+        'x-rapidapi-key': "f0e9484262mshfd3c258499e71b9p109e6djsnf8c3614c3590"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    return HttpResponse(response.text)
+    # tracks = response.json()['tracks']
+    # for track in tracks:
+    #     musics.title = track['title']
+    #     musics.link = track['share']['link']
+    #     musics.image = track['share']['image']
+    #     musics.save()
+    #     # print(track['title'])
+    #     # print(track['share']['href'])
+    #     # print(track['share']['image'])
+    # return render(request, 'index.html', {'musics': musics})
+
+def music(request):
+    musics = Music.objects.all()
+
+    url = "https://shazam.p.rapidapi.com/songs/list-artist-top-tracks"
+
+    querystring = {"id":"40008598","locale":"en-US"}
+
+    headers = {
+        'x-rapidapi-host': "shazam.p.rapidapi.com",
+        'x-rapidapi-key': "f0e9484262mshfd3c258499e71b9p109e6djsnf8c3614c3590"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    tracks = response.json()['tracks']
+    for track in tracks:
+        musics.title = track['title']
+        musics.link = track['share']['href']
+        musics.image = track['share']['image']
+        musics.save()
+    return render(request, 'index.html', {'musics': musics})

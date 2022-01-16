@@ -15,7 +15,7 @@ class Client:
 
     def close(self):
         self.socket.close()
-        
+
 if __name__ == "__main__":
     client = Client('localhost', 8000)
     client.send('Hello World!')

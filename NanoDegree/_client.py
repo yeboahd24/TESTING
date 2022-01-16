@@ -25,7 +25,7 @@ def send_email_with_attachment(email_user, email_pass, email_to, email_subject,
 
 
 def send_email_with_multiple_attachments(email_user, email_pass, email_to,
-                                         email_subject, 
+                                         email_subject,
                                          email_body, attachments):
     """
     Send email to the email_to address with the email_subject and email_body
@@ -36,7 +36,7 @@ def send_email_with_multiple_attachments(email_user, email_pass, email_to,
 
 
 def send_email_with_multiple_recipients(email_user, email_pass,
-                                        email_to, email_subject, 
+                                        email_to, email_subject,
                                         email_body, attachments):
     """
     Send email to the email_to address with the email_subject and email_body
@@ -46,7 +46,7 @@ def send_email_with_multiple_recipients(email_user, email_pass,
     print('Email sent to {}'.format(email_to))
 
 
-def send_email_with_multiple_recipients_and_cc(email_user, email_pass, email_to, 
+def send_email_with_multiple_recipients_and_cc(email_user, email_pass, email_to,
                                                email_subject,
                                                email_body, attachments):
     """
