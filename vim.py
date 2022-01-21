@@ -1,53 +1,44 @@
-import string
-import keyboard
+import imaplib
+import email
 
-keys = ['cmd', 'alt', 'shift', 'tab', 'delete', 'Backspace', 'enter', 'ctrl', 'spacebar', 'insert',
-        'end', 'escape', 'home', 'pageup', 'pagedown', 'numlock','pause', 'f1', 'f2', 'f3', 'f4',
-        'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12'
-        ]
+################ IMAP SSL ##############################
 
-restricted_ls = ['end', 'escape', 'home', 'pageup', 'pagedown', 'numlock', 'pause', 'capslock','spacebar',
-                 'capslock', 'delete', 'Backspace', 'enter', 'tab', 'insert']# these are keys which isnt in any starting of a keyboard shortcuts
+with imaplib.IMAP4_SSL(host="imap.gmail.com", port=imaplib.IMAP4_SSL_PORT) as imap_ssl:
+    print("Connection Object : {}".format(imap_ssl))
 
+    ############### Login to Mailbox ######################
+    print("Logging into mailbox...")
+    resp_code, response = imap_ssl.login("Email", 'Password')
 
-#Using keyboard module to check for chained keypresses
+    print("Response Code : {}".format(resp_code))
+    print("Response      : {}\n".format(response[0].decode()))
 
-# Using keyboard module to check for chained keypresses
+    ############### Set Mailbox #############
+    resp_code, mail_count = imap_ssl.select(mailbox="[Gmail]/Spam", readonly=True)
 
-def check_chained_keys(key):
-    if key in keys:
-        return True
-    else:
-        return False
-    
-def check_restricted_keys(key):
-    if key in restricted_ls:
-        return True
-    else:
-        return False
-    
-def check_chained_keys_with_restricted_keys(key):
-    if check_chained_keys(key) or check_restricted_keys(key):
-        return True
-    else:
-        return False
-    
-# print(check_chained_keys_with_restricted_keys('shift'))
+    ############### Retrieve Mail IDs for given Directory #############
+    resp_code, mails = imap_ssl.search(None, "ALL")
+    print("Mail IDs : {}\n".format(mails[0].decode().split()))
 
+    ############### Display Few Messages for given Directory #############
+    for mail_id in mails[0].decode().split()[-2:]:
+        print("================== Start of Mail [{}] ====================".format(mail_id))
+        resp_code, mail_data = imap_ssl.fetch(mail_id, '(RFC822)') ## Fetch mail data.
+        message = email.message_from_bytes(mail_data[0][1]) ## Construct Message from mail data
+        print("From       : {}".format(message.get("From")))
+        print("To         : {}".format(message.get("To")))
+        print("Bcc        : {}".format(message.get("Bcc")))
+        print("Date       : {}".format(message.get("Date")))
+        print("Subject    : {}".format(message.get("Subject")))
 
-ls = []
-for i in string.ascii_lowercase:
-    keys.append(i)
-    
-# posible key combinations
-for i in keys:
-    for j in keys:
-        if i != j and check_chained_keys_with_restricted_keys(i) and check_chained_keys_with_restricted_keys(j):
-            ls.append(i + j)
-           
-           
-while True:
-    for i in ls:
-        if keyboard.is_pressed(i):
-            print(i)
-            break
+        print("Body : ")
+        for part in message.walk():
+            if part.get_content_type() == "text/plain":
+                body_lines = part.as_string().split("\n")
+                print("\n".join(body_lines[:12])) ### Print first 12 lines of message
+
+        print("================== End of Mail [{}] ====================\n".format(mail_id))
+
+    ############# Close Selected Mailbox #######################
+    print("\nClosing selected mailbox....")
+    imap_ssl.close()
