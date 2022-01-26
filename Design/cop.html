@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <title>Maranatha Assembly</title>
+    <meta name="viewport" content="width = device-width, initial-scale = 1" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="navbar-fixed">
+      <nav class="teal">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#!" class="brand-logo">Maranatha Assembly</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+              ><i class="material-icons">menu</i></a
+            >
+            <ul class="right hide-on-med-and-down">
+              <li>
+                <a href="#home">Home</a>
+              </li>
+              <li>
+                <a href="#search">Search</a>
+              </li>
+              <li>
+                <a href="#official">Church Officials</a>
+              </li>
+              <li>
+                <a href="#gallery">Gallery</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <ul class="sidenav" id="mobile-demo">
+      <li>
+        <a href="#home">Home</a>
+      </li>
+      <li>
+        <a href="#search">Search</a>
+      </li>
+      <li>
+        <a href="#official">Church Officials</a>
+      </li>
+      <li>
+        <a href="#gallery">Gallery</a>
+      </li>
+      <li>
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Section: Slider -->
+    <section class="slider">
+      <ul class="slides">
+        <li>
+          <img
+            src="data:image/jpeg;base64,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"
+            alt="chairman"
+          />
+          <div class="caption center-align">
+            <h2>Apostle Eric Nyamekye</h2>
+            <h5 class="light grey-text text-lighten-3 hide-on-small-only">
+              The Chairman of the Church of Pentecost. He was called into
+              ministry in 1991, and has since served in many stations including
+              South Africa where he was a missionary. Before his election to the
+              position of the Chairman of The Church of Pentecost, he served as
+              a member of the Executive Council for five (5) years, and also as
+              Area Head for Koforidua.
+            </h5>
+          </div>
+        </li>
+        <li>
+          <img
+            src="data:image/jpeg;base64,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"
+            alt=""
+          />
+          <div class="caption left-align">
+            <h2>Apostle Professor Kwadwo Nimfour Opoku Onyinah</h2>
+            <h5 class="light grey-text text-lighten-3 hide-on-small-only">
+              Apostle Professor Kwadwo Nimfour Opoku Onyinah is a Ghanaian
+              theologian, a televangelist, a composer and the fifth chairman of
+              The Church of Pentecost from 2008 to 2018. He founded the
+              Pentecost International Worship Centre, a ministry of The Church
+              of Pentecost in 1993
+            </h5>
+          </div>
+        </li>
+        <li>
+          <img
+            src="data:image/jpeg;base64,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"
+            alt=""
+          />
+          <div class="caption right-align">
+            <h2>James McKeown</h2>
+            <h5 class="light grey-text text-lighten-3 hide-on-small-only">
+              James McKeown arrived in the Gold Coast on 4 March 1937 to
+              begin missionary work as the resident missionary of the Apostolic
+              Church of Bradford after having left the United Kingdom for the
+              then Gold Coast on a boat in February 1937. He had delayed the
+              decision to become a missionary for 15 months after a prophecy had
+              been made that he would go to West Africa on Missionary duty. He
+              had initially refused to become a missionary owing chiefly to his
+              inadequate formal training. He settled in Asamankese and begun his
+              missionary work there. His wife Sophia joined him in the Gold
+              Coast in September 1937.
+            </h5>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section: Search -->
+    <section
+      id="search"
+      class="section section-search teal darken-1 white-text center scrollspy"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <h3>Search Groups</h3>
+            <div class="input-field">
+              <input
+                class="white grey-text autocomplete"
+                placeholder="Aruba, Cancun, etc..."
+                type="text"
+                id="autocomplete-input"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Icon Boxes -->
+    <section class="section section-icons grey lighten-4 center">
+      <div class="container">
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Group</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Alvin</td>
+              <td>Eclair</td>
+              <td>$0.87</td>
+            </tr>
+            <tr>
+              <td>Alan</td>
+              <td>Jellybean</td>
+              <td>$3.76</td>
+            </tr>
+            <tr>
+              <td>Jonathan</td>
+              <td>Lollipop</td>
+              <td>$7.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section: Popular -->
+    <section id="official" class="section section-popular scrollspy">
+      <div class="container">
+        <div class="row">
+          <h4 class="center">
+            <span class="teal-text">Church</span> Officials
+          </h4>
+          <div class="col s12 m4 z-depth-3">
+            <div class="card">
+              <div class="card-image">
+                <img src="https://image.ibb.co/hbEMux/resort1.jpg" alt="" />
+                <span class="card-title">Cancun, Mexico</span>
+              </div>
+              <div class="card-content">
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Voluptas aliquid fugiat corporis laudantium, architecto
+                  delectus?
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m4 z-depth-3">
+            <div class="card">
+              <div class="card-image">
+                <img src="https://image.ibb.co/mn1egc/resort2.jpg" alt="" />
+                <span class="card-title">The Bahamas</span>
+              </div>
+              <div class="card-content">
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Voluptas aliquid fugiat corporis laudantium, architecto
+                  delectus?
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m4 z-depth-3">
+            <div class="card">
+              <div class="card-image">
+                <img src="https://image.ibb.co/mbCVnH/resort3.jpg" alt="" />
+                <span class="card-title">Nova Scotia</span>
+              </div>
+              <div class="card-content">
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Voluptas aliquid fugiat corporis laudantium, architecto
+                  delectus?
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 center">
+            <a href="#contact" class="btn btn-large grey darken-3">
+              <i class="material-icons left">send</i> Contact For Counselling
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Follow -->
+    <section class="section section-follow teal darken-2 white-text center">
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <h4>Follow Travelville</h4>
+            <p>Follow us on social media for special offers</p>
+            <a href="htttps://facebook.com" target="_blank" class="white-text">
+              <i class="fab fa-facebook fa-4x"></i>
+            </a>
+            <a href="htttps://twitter.com" target="_blank" class="white-text">
+              <i class="fab fa-twitter fa-4x"></i>
+            </a>
+            <a href="htttps://linkedin.com" target="_blank" class="white-text">
+              <i class="fab fa-linkedin fa-4x"></i>
+            </a>
+            <a
+              href="htttps://googleplus.com"
+              target="_blank"
+              class="white-text"
+            >
+              <i class="fab fa-google-plus fa-4x"></i>
+            </a>
+            <a href="htttps://pinterest.com" target="_blank" class="white-text">
+              <i class="fab fa-pinterest fa-4x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Gallery -->
+    <section id="gallery" class="section section-gallery scrollspy">
+      <div class="container">
+        <h4 class="center"><span class="teal-text">Photo </span> Gallery</h4>
+        <div class="row">
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?beach"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?travel"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?nature"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?beach, travel"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?beaches"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?traveling"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?bridge"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?boat, travel"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?water"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?building"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?trees"
+              alt=""
+            />
+          </div>
+          <div class="col s12 m3">
+            <img
+              class="materialboxed responsive-img"
+              src="https://source.unsplash.com/1600x900/?cruise"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Contact -->
+    <section id="contact" class="section section-contact scrollspy">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card-panel teal white-text center">
+              <i class="material-icons medium">email</i>
+              <h5>Contact Us For Counselling</h5>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Repellendus sed praesentium delectus. Sit, mollitia quo. Veniam
+                repellat voluptas ipsum doloremque?
+              </p>
+            </div>
+            <ul class="collection with-header">
+              <li class="collection-header">
+                <h4>Location</h4>
+              </li>
+              <li class="collection-item">COP (Maranatha Assembly)</li>
+              <li class="collection-item">Atimatim-Tabuom</li>
+              <li class="collection-item">Atimatim GPS, AF-02491178</li>
+            </ul>
+          </div>
+          <div class="col s12 m6">
+            <div class="card-panel grey lighten-3">
+              <h5>Please fill out this form</h5>
+              <div class="input-field">
+                <input type="text" placeholder="Name" id="name" />
+                <label for="name">Name</label>
+              </div>
+              <div class="input-field">
+                <input type="email" placeholder="Email" id="email" />
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field">
+                <input type="text" placeholder="Phone" id="phone" />
+                <label for="phone">Phone</label>
+              </div>
+              <div class="input-field">
+                <textarea
+                  class="materialize-textarea"
+                  placeholder="Enter Message"
+                  id="message"
+                ></textarea>
+                <label for="message">Message</label>
+              </div>
+              <input type="submit" value="Submit" class="btn" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section teal darken-2 white-text center">
+      <p class="flow-text">Maranatha Assembly &copy; 2022</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      // Side Menu
+      const sideNav = document.querySelector(".sidenav");
+      M.Sidenav.init(sideNav, {});
+
+      // Slider
+      const slider = document.querySelector(".slider");
+      M.Slider.init(slider, {
+        indicators: false,
+        height: 500,
+        transition: 500,
+        interval: 6000,
+      });
+
+      // Scrollspy
+      const ss = document.querySelectorAll(".scrollspy");
+      M.ScrollSpy.init(ss, {});
+
+      // Material Boxed
+      const mb = document.querySelectorAll(".materialboxed");
+      M.Materialbox.init(mb, {});
+
+      // Auto Complete
+      const ac = document.querySelector(".autocomplete");
+      M.Autocomplete.init(ac, {
+        data: {
+          Aruba: null,
+          "Cancun Mexico": null,
+          Hawaii: null,
+          Florida: null,
+          California: null,
+          Jamaica: null,
+          Europe: null,
+          "The Bahamas": null,
+        },
+      });
+    </script>
+  </body>
+</html>
